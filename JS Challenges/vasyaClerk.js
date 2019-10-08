@@ -12,3 +12,35 @@ tickets([25, 25, 50]) // => YES
 tickets([25, 100]) // => NO. Vasya will not have enough money to give change to 100 dollars
 tickets([25, 25, 50, 50, 100]) // => NO. Vasya will not have the right bills.
 */
+
+function tickets(array){
+    let current_balance_twenty_five = 0;
+    let current_balance_fifty = 0;
+    for (i=0;i<array.length;i++){
+        if(array[i] == 25){
+            current_balance_twenty_five += 1
+        }
+        else if(array[i] == 50){
+            current_balance_twenty_five -= 1;
+            current_balance_fifty += 1;
+        }
+        else {
+            if(current_balance_fifty >= 2) {
+                current_balance_fifty -= 2;
+                current_balance_twenty_five -= 1;
+            }
+            else if(current_balance_fifty >=1 ) {
+                current_balance_fifty -= 1;
+                current_balance_twenty_five -= 2;
+            }
+            else {
+                current_balance_twenty_five -= 3;
+            }
+        }
+    }
+    if (current_balance_twenty_five < 0) {
+        return "NO";
+    }
+    return "YES";
+}
+
